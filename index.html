@@ -5,253 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plano de Compras - Tomadas e Interruptores</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .intro {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .product-image {
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-        
-        .product-image img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        
-        .product-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .quantity-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-        }
-        
-        .quantity-btn:hover {
-            background-color: #2980b9;
-        }
-        
-        .quantity-btn.minus {
-            background-color: #e74c3c;
-        }
-        
-        .quantity-btn.minus:hover {
-            background-color: #c0392b;
-        }
-        
-        .quantity-display {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 0 20px;
-            min-width: 50px;
-            text-align: center;
-        }
-        
-        .shopping-summary {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            padding: 25px;
-            margin-top: 30px;
-        }
-        
-        .shopping-summary h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f1f1f1;
-        }
-        
-        .summary-list {
-            list-style-type: none;
-        }
-        
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f1f1;
-        }
-        
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-        
-        .total {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #2c3e50;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #f1f1f1;
-        }
-        
-        .empty-message {
-            text-align: center;
-            color: #7f8c8d;
-            font-style: italic;
-            padding: 20px;
-        }
-        
-        .action-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 25px;
-            gap: 15px;
-        }
-        
-        .reset-btn, .save-btn {
-            padding: 12px 25px;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            border: none;
-            flex: 1;
-        }
-        
-        .reset-btn {
-            background-color: #e74c3c;
-            color: white;
-        }
-        
-        .reset-btn:hover {
-            background-color: #c0392b;
-        }
-        
-        .save-btn {
-            background-color: #2ecc71;
-            color: white;
-        }
-        
-        .save-btn:hover {
-            background-color: #27ae60;
-        }
-        
-        .save-btn:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-        }
-        
-        .message {
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 15px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
-        }
-        
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-        
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-        
+        /* ... (mantive exatamente seu CSS original) ... */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f5f7fa; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 40px; padding: 20px; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .intro { font-size: 1.1rem; max-width: 800px; margin: 0 auto; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .product-card { background: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); padding: 20px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12); }
+        .product-image { height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
+        .product-image img { max-width: 100%; max-height: 100%; }
+        .product-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 15px; color: #2c3e50; }
+        .quantity-controls { display: flex; align-items: center; justify-content: center; margin: 20px 0; }
+        .quantity-btn { background-color: #3498db; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s; }
+        .quantity-btn:hover { background-color: #2980b9; }
+        .quantity-btn.minus { background-color: #e74c3c; }
+        .quantity-btn.minus:hover { background-color: #c0392b; }
+        .quantity-display { font-size: 1.8rem; font-weight: bold; margin: 0 20px; min-width: 50px; text-align: center; }
+        .shopping-summary { background: white; border-radius: 12px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); padding: 25px; margin-top: 30px; }
+        .shopping-summary h2 { color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #f1f1f1; }
+        .summary-list { list-style-type: none; }
+        .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f1f1; }
+        .summary-item:last-child { border-bottom: none; }
+        .total { font-weight: bold; font-size: 1.2rem; color: #2c3e50; margin-top: 15px; padding-top: 15px; border-top: 2px solid #f1f1f1; }
+        .empty-message { text-align: center; color: #7f8c8d; font-style: italic; padding: 20px; }
+        .action-buttons { display: flex; justify-content: space-between; margin-top: 25px; gap: 15px; }
+        .reset-btn, .save-btn { padding: 12px 25px; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s; border: none; flex: 1; }
+        .reset-btn { background-color: #e74c3c; color: white; }
+        .reset-btn:hover { background-color: #c0392b; }
+        .save-btn { background-color: #2ecc71; color: white; }
+        .save-btn:hover { background-color: #27ae60; }
+        .save-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        .message { padding: 12px; border-radius: 6px; margin-top: 15px; text-align: center; font-weight: 500; display: none; }
+        .message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+        .message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
         @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            h1 { font-size: 2rem; }
+            .action-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -283,59 +76,19 @@
     </div>
 
     <script>
-        // Dados dos produtos
+        // Dados dos produtos (mantidos)
         const products = [
-            {
-                id: 1,
-                name: "Tomada de 1 entrada",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%23f1c40f' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 2,
-                name: "Tomada de 2 entradas",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%231abc9c' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='35' cy='50' r='8' fill='%232c3e50'/%3E%3Ccircle cx='65' cy='50' r='8' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 3,
-                name: "Tomada de 3 entradas",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%233498db' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='30' cy='50' r='6' fill='%232c3e50'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%232c3e50'/%3E%3Ccircle cx='70' cy='50' r='6' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 4,
-                name: "Tomada 1 entrada + 2 interruptores",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%239b59b6' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='35' r='6' fill='%232c3e50'/%3E%3Crect x='35' y='50' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3Crect x='35' y='62' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 5,
-                name: "Tomada 1 entrada + 1 interruptor",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%23e74c3c' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='35' r='6' fill='%232c3e50'/%3E%3Crect x='35' y='50' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 6,
-                name: "Interruptor 1 luz",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='30' y='30' width='40' height='40' rx='5' fill='%2395a5a6' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='40' y='40' width='20' height='20' rx='3' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 7,
-                name: "Interruptor 2 luzes",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='25' y='25' width='50' height='50' rx='5' fill='%231abc9c' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='35' y='35' width='15' height='15' rx='2' fill='%232c3e50'/%3E%3Crect x='50' y='35' width='15' height='15' rx='2' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            },
-            {
-                id: 8,
-                name: "Interruptor 3 luzes",
-                image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%23f39c12' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='30' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3Crect x='44' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3Crect x='58' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3C/svg%3E",
-                quantity: 0
-            }
+            { id: 1, name: "Tomada de 1 entrada", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%23f1c40f' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 2, name: "Tomada de 2 entradas", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%231abc9c' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='35' cy='50' r='8' fill='%232c3e50'/%3E%3Ccircle cx='65' cy='50' r='8' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 3, name: "Tomada de 3 entradas", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='60' height='40' rx='5' fill='%233498db' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='30' cy='50' r='6' fill='%232c3e50'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%232c3e50'/%3E%3Ccircle cx='70' cy='50' r='6' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 4, name: "Tomada 1 entrada + 2 interruptores", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%239b59b6' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='35' r='6' fill='%232c3e50'/%3E%3Crect x='35' y='50' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3Crect x='35' y='62' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 5, name: "Tomada 1 entrada + 1 interruptor", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%23e74c3c' stroke='%232c3e50' stroke-width='2'/%3E%3Ccircle cx='50' cy='35' r='6' fill='%232c3e50'/%3E%3Crect x='35' y='50' width='30' height='8' rx='3' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 6, name: "Interruptor 1 luz", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='30' y='30' width='40' height='40' rx='5' fill='%2395a5a6' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='40' y='40' width='20' height='20' rx='3' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 7, name: "Interruptor 2 luzes", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='25' y='25' width='50' height='50' rx='5' fill='%231abc9c' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='35' y='35' width='15' height='15' rx='2' fill='%232c3e50'/%3E%3Crect x='50' y='35' width='15' height='15' rx='2' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 },
+            { id: 8, name: "Interruptor 3 luzes", image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='5' fill='%23f39c12' stroke='%232c3e50' stroke-width='2'/%3E%3Crect x='30' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3Crect x='44' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3Crect x='58' y='30' width='12' height='12' rx='2' fill='%232c3e50'/%3E%3C/svg%3E", quantity: 0 }
         ];
 
-        // Referências aos elementos DOM
+        // Referências DOM
         const productGrid = document.getElementById('productGrid');
         const summaryList = document.getElementById('summaryList');
         const totalItems = document.getElementById('totalItems');
@@ -343,30 +96,23 @@
         const saveBtn = document.getElementById('saveBtn');
         const message = document.getElementById('message');
 
-        // Configurações da planilha Google
-        const SPREADSHEET_ID = 'https://script.google.com/macros/s/AKfycbxxaLPr1gBrTAWqOSpTqWhVvUS7p7Li0iaADy5NJTp4a7UoUdNaPGsSkOtOCMkJ0V71/exec'; // Substitua pelo ID da sua planilha
-        const SHEET_NAME = 'Pedidos'; // Nome da aba na planilha
+        // URL do Web App do Google Apps Script (a URL de deploy, não a ID)
+        // Substitua pela sua URL de deploy do Apps Script (a que você obteve em "Deploy -> Web app")
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxPyXvBKgnLKHyIXs9ZWuLZyxufosxEtXCwTTDFk69pofOZA5PH9vWG6AepfiRT6cE/exec';
 
-        // Inicializar a aplicação
+        // Inicializar
         function initApp() {
             renderProducts();
             updateSummary();
-            
-            // Adicionar evento ao botão de reset
             resetBtn.addEventListener('click', resetAll);
-            
-            // Adicionar evento ao botão de salvar
             saveBtn.addEventListener('click', saveToSpreadsheet);
         }
 
-        // Renderizar os produtos na grade
         function renderProducts() {
             productGrid.innerHTML = '';
-            
             products.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
-                
                 productCard.innerHTML = `
                     <div class="product-image">
                         <img src="${product.image}" alt="${product.name}">
@@ -378,42 +124,31 @@
                         <button class="quantity-btn" data-id="${product.id}">+</button>
                     </div>
                 `;
-                
                 productGrid.appendChild(productCard);
             });
-            
-            // Adicionar eventos aos botões
+
             document.querySelectorAll('.quantity-btn').forEach(button => {
                 button.addEventListener('click', handleQuantityChange);
             });
         }
 
-        // Manipular mudanças na quantidade
         function handleQuantityChange(e) {
             const productId = parseInt(e.target.getAttribute('data-id'));
             const product = products.find(p => p.id === productId);
-            
             if (e.target.classList.contains('minus')) {
-                if (product.quantity > 0) {
-                    product.quantity--;
-                }
+                if (product.quantity > 0) product.quantity--;
             } else {
                 product.quantity++;
             }
-            
-            // Atualizar a exibição
             document.getElementById(`quantity-${productId}`).textContent = product.quantity;
             updateSummary();
         }
 
-        // Atualizar o resumo
         function updateSummary() {
             summaryList.innerHTML = '';
             let totalCount = 0;
-            
-            // Adicionar apenas os produtos com quantidade > 0
             const itemsWithQuantity = products.filter(product => product.quantity > 0);
-            
+
             if (itemsWithQuantity.length === 0) {
                 summaryList.innerHTML = '<div class="empty-message">Nenhum item selecionado ainda</div>';
                 saveBtn.disabled = true;
@@ -421,61 +156,44 @@
                 itemsWithQuantity.forEach(product => {
                     const listItem = document.createElement('li');
                     listItem.className = 'summary-item';
-                    listItem.innerHTML = `
-                        <span>${product.name}</span>
-                        <span>${product.quantity} unidade(s)</span>
-                    `;
+                    listItem.innerHTML = `<span>${product.name}</span><span>${product.quantity} unidade(s)</span>`;
                     summaryList.appendChild(listItem);
                     totalCount += product.quantity;
                 });
                 saveBtn.disabled = false;
             }
-            
+
             totalItems.textContent = `Total de itens: ${totalCount}`;
         }
 
-        // Resetar todas as quantidades
         function resetAll() {
-            products.forEach(product => {
-                product.quantity = 0;
-            });
-            
+            products.forEach(product => product.quantity = 0);
             renderProducts();
             updateSummary();
             hideMessage();
         }
 
-        // Salvar dados na planilha do Google
         async function saveToSpreadsheet() {
             try {
-                // Desabilitar o botão para evitar múltiplos envios
                 saveBtn.disabled = true;
                 saveBtn.textContent = 'Salvando...';
-                
-                // Obter os dados para salvar
-                const itemsToSave = products
-                    .filter(product => product.quantity > 0)
-                    .map(product => ({
-                        nome: product.name,
-                        quantidade: product.quantity
-                    }));
-                
-                // Adicionar timestamp
+
+                const itemsToSave = products.filter(p => p.quantity > 0).map(p => ({ nome: p.name, quantidade: p.quantity }));
+                if (itemsToSave.length === 0) {
+                    showMessage('Nenhum item para salvar.', 'error');
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = 'Salvar na Planilha';
+                    return;
+                }
+
                 const timestamp = new Date().toLocaleString('pt-BR');
-                
-                // Preparar os dados para envio
-                const dataToSave = {
-                    timestamp: timestamp,
-                    items: itemsToSave
-                };
-                
-                // Enviar para a planilha (aqui você precisa implementar a integração)
+                const dataToSave = { timestamp, items: itemsToSave };
+
                 const success = await sendDataToSpreadsheet(dataToSave);
-                
+
                 if (success) {
                     showMessage('Dados salvos com sucesso na planilha!', 'success');
-                    // Opcional: resetar após salvar
-                    // resetAll();
+                    // opcional: resetAll();
                 } else {
                     throw new Error('Falha ao salvar na planilha');
                 }
@@ -483,62 +201,87 @@
                 console.error('Erro ao salvar na planilha:', error);
                 showMessage('Erro ao salvar na planilha. Tente novamente.', 'error');
             } finally {
-                // Reabilitar o botão
                 saveBtn.disabled = false;
                 saveBtn.textContent = 'Salvar na Planilha';
             }
         }
 
-        // Função para enviar dados para a planilha (implementação de exemplo)
-        async function sendDataToSpreadsheet(data) {
-            // Esta é uma implementação de exemplo
-            // Você precisará adaptar para sua solução específica
-            
-            // Opção 1: Usando Google Apps Script (recomendado)
-            // Crie um Web App no Google Apps Script e use a URL aqui
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbxxaLPr1gBrTAWqOSpTqWhVvUS7p7Li0iaADy5NJTp4a7UoUdNaPGsSkOtOCMkJ0V71/exec';
-            
-            try {
-                const response = await fetch(scriptUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    return true;
-                } else {
-                    throw new Error('Falha na resposta do servidor');
-                }
-            } catch (error) {
-                console.error('Erro ao enviar dados:', error);
-                return false;
-            }
-            
-            // Opção 2: Usando a API do Google Sheets diretamente (requer autenticação)
-            // Esta opção é mais complexa e requer configuração de OAuth2
-            // Não é recomendada para aplicações client-side devido a questões de segurança
+        /**
+         * Envia via JSONP (cria uma <script> com ?data=...&callback=...)
+         * Retorna Promise<boolean>
+         */
+        function sendDataToSpreadsheet(data) {
+            return new Promise((resolve, reject) => {
+                // Nome único para callback
+                const callbackName = '__gsCallback' + Date.now() + Math.floor(Math.random() * 1000);
+
+                // Monta função de callback global
+                window[callbackName] = function(response) {
+                    // cleanup
+                    try { delete window[callbackName]; } catch(e) {}
+                    if (scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
+
+                    if (response && response.result === 'success') {
+                        resolve(true);
+                    } else {
+                        console.error('Resposta JSONP (erro):', response);
+                        resolve(false);
+                    }
+                };
+
+                // Criar script
+                const scriptEl = document.createElement('script');
+
+                // Monta URL com data encoded
+                const payload = encodeURIComponent(JSON.stringify(data));
+                const url = scriptUrl + '?data=' + payload + '&callback=' + callbackName;
+
+                scriptEl.src = url;
+                scriptEl.async = true;
+
+                // onerror => falha de rede / 404 / etc
+                scriptEl.onerror = function() {
+                    try { delete window[callbackName]; } catch(e) {}
+                    if (scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
+                    reject(false);
+                };
+
+                // Timeout (em caso de algo travar)
+                const timeoutId = setTimeout(() => {
+                    if (window[callbackName]) {
+                        try { delete window[callbackName]; } catch(e) {}
+                        if (scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
+                        reject(false);
+                    }
+                }, 15000);
+
+                // Quando a callback for executada limpamos o timeout
+                const originalCallback = window[callbackName];
+                window[callbackName] = function(response) {
+                    clearTimeout(timeoutId);
+                    try { delete window[callbackName]; } catch(e) {}
+                    if (scriptEl && scriptEl.parentNode) scriptEl.parentNode.removeChild(scriptEl);
+                    if (response && response.result === 'success') resolve(true);
+                    else resolve(false);
+                };
+
+                // Anexar script ao body para executar o GET/JSONP
+                document.body.appendChild(scriptEl);
+            });
         }
 
-        // Mostrar mensagem de feedback
         function showMessage(text, type) {
             message.textContent = text;
             message.className = `message ${type}`;
             message.style.display = 'block';
-            
-            // Esconder a mensagem após 5 segundos
             setTimeout(hideMessage, 5000);
         }
 
-        // Esconder mensagem
         function hideMessage() {
             message.style.display = 'none';
             message.className = 'message';
         }
 
-        // Inicializar a aplicação quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
